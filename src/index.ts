@@ -1,15 +1,9 @@
-import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
+import "dotenv/config";
+import { serve } from "@hono/node-server";
+import { allRoutes } from "./routes/routes-index.js";
 
-const app = new Hono()
+allRoutes.get("/", (c) => c.text("Hello from Neuronest!"));
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
-
-serve({
-  fetch: app.fetch,
-  port: 3000
-}, (info) => {
-  console.log(`Server is running on http://localhost:${info.port}`)
-})
+serve(allRoutes, (info) => {
+  console.log(`Server is running on http://localhost:${info.port}`);
+});
